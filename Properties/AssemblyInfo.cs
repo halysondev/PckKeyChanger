@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // As informações gerais sobre um assembly são controladas por
 // conjunto de atributos. Altere estes valores de atributo para modificar as informações
 // associadas a um assembly.
-[assembly: AssemblyTitle("pckkey")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("PckKeyChanger")]
+[assembly: AssemblyDescription("PckKeyChanger")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("pckkey")]
-[assembly: AssemblyCopyright("Copyright ©  2024")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany("Haly")]
+[assembly: AssemblyProduct("PckKeyChanger")]
+[assembly: AssemblyCopyright("Haly - Copyright ©  2024")]
+[assembly: AssemblyTrademark("PckKeyChanger")]
 [assembly: AssemblyCulture("")]
 
 // Definir ComVisible como false torna os tipos neste assembly invisíveis

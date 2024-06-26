@@ -19,8 +19,11 @@ namespace pckkey
 
         static void Main(string[] args)
         {
+            Console.WriteLine();
             Console.WriteLine("PCK Key Changer - Haly");
-            Console.WriteLine("GitHub: https://github.com/halysondev/");
+            Console.WriteLine();
+            Console.WriteLine("GitHub: https://github.com/halysondev/PckKeyChanger");
+            Console.WriteLine();
 
             // Prompt the user to enter the old keys, with default values if not provided
             Console.WriteLine("Enter the old key 1 (leave empty for default -1466731422):");
@@ -96,6 +99,10 @@ namespace pckkey
                 {
                     // Calculate the cursor position for the file
                     filePosition = initialCursorTop + (int)index;
+                    if (filePosition >= Console.BufferHeight)
+                    {
+                        Console.SetBufferSize(Console.BufferWidth, filePosition + 1);
+                    }
                     fileCursorPositions[fileName] = filePosition;
                     Console.SetCursorPosition(0, filePosition);
                     Console.WriteLine($"Processing file: {fileName}");
@@ -120,14 +127,18 @@ namespace pckkey
                         UpdateProgress(fileName, progressCurrent, progressMax);
                     };
 
-                    //lock (lockObject)
-                    //{
-                        archive.ReadFileTable();
-                    //}
+                    archive.ReadFileTable();
 
                     archive.ChangeKeys(newKey1, newKey2, compressionLevel);
 
                     archive.Dispose();
+                }
+
+                lock (lockObject)
+                {
+                    filePosition = fileCursorPositions[fileName];
+                    Console.SetCursorPosition(0, filePosition);
+                    Console.WriteLine($"File {fileName} processed successfully.");
                 }
             });
 
@@ -143,8 +154,11 @@ namespace pckkey
                 {
                     int filePosition = fileCursorPositions[fileName];
                     // Move the cursor to the stored position for the file and update the progress
-                    Console.SetCursorPosition(0, filePosition);
-                    Console.WriteLine($"Progress for {fileName}: {progressCurrent}/{progressMax}");
+                    if (filePosition < Console.BufferHeight)
+                    {
+                        Console.SetCursorPosition(0, filePosition);
+                        Console.WriteLine($"Progress for {fileName}: {progressCurrent}/{progressMax}");
+                    }
                 }
             }
         }

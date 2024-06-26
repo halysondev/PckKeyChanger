@@ -478,6 +478,29 @@ namespace pckkey.Core.ArchiveEngine
             LoadData?.Invoke(0);
         }
 
+        public void SwapKeys(int newKey1, int newKey2)
+        {
+            try
+            {
+                Stream.Reopen(true);
+
+                Key.KEY_1 = newKey1;
+                Key.KEY_2 = newKey2;
+
+                SaveFileTable();
+
+                Console.WriteLine("Keys swapped successfully.");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"{e.Message}\n{e.Source}\n{e.StackTrace}");
+            }
+            finally
+            {
+                Stream.Close();
+            }
+        }
+
         public void ReadFileTableChangedKeysV3(int new_key1, int new_key2)
         {
             Stream.Reopen(true);
